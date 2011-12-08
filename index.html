@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grid</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+    <!-- Div to which the grid will be applied -->
+    <div id="grid"></div>
+    
+    <!-- CSS to set styles for the grid -->
+    <style type="text/css">
+      #grid {
+        background: url("grid_12_col.png") 50% 0 repeat-y;
+        display: none;
+        height: 1000%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+      }
+    </style>
+    
+    <!-- JavaScript to show and hide the grid accordingly -->
+    <script type="text/javascript">
+      $(document).bind('keydown', function(event) {
+        if (event.which == 27) {
+          event.preventDefault();
+          $('#grid').toggle();
+        }
+      });
+    </script>
+  
+  </body>
+</html>
