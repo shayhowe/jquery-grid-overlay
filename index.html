@@ -1,36 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Grid</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>jQuery Grid Overlay by Shay Howe</title>
   </head>
   <body>
+
+    <p>Press the <kbd>esc</kbd> key to toggle the grid.</p>
+    <p>Enjoy the overlay? Follow <a href="https://twitter.com/shayhowe">@shayhowe</a> on Twitter.</p>
     
-    <!-- Div to which the grid will be applied -->
-    <div id="grid"></div>
+    <!-- Required: HTML grid -->
+    <!-- Please substitute the 'container' and 'col-1-4' classes your own grid classes -->
+
+    <div class="jquery-grid">
+      <div class="container jquery-grid-container">
+        <div class="col-1-4 jquery-grid-col"></div>
+        <div class="col-1-4 jquery-grid-col"></div>
+        <div class="col-1-4 jquery-grid-col"></div>
+        <div class="col-1-4 jquery-grid-col"></div>
+      </div>
+    </div>
     
-    <!-- CSS to set styles for the grid -->
+    <!-- Required: jQuery -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- Required: Overlay functionality -->
+
+    <script type="text/javascript">
+
+      // Edit the line_height variable below
+
+      var line_height = 24;
+
+      // No need for further adjustments
+
+      // Setting up variables
+
+      var line_height_offset = (line_height - 1) + 'px';
+      var line_height = line_height + 'px';
+
+      // Beginning jQuery
+
+      $(document).ready(function() {
+
+        // Setting horizontal background styles
+
+        $('.jquery-grid-container').css({
+          backgroundImage: 'linear-gradient(transparent ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height + ')', 
+          backgroundSize: line_height + ' ' + line_height
+        });
+        
+        // Setting up 'ESC' function to toggle the grid
+
+        $(document).on('keydown', function(event) {
+          if (event.which == 27) {
+            event.preventDefault();
+            $('.jquery-grid').toggle();
+          }
+        });
+
+      });
+
+    </script>
+
+    <!-- Required: Overlay styles -->
+
     <style type="text/css">
-      #grid {
-        background: url("images/grid_12_col.png") 50% 0 repeat-y;
+      .jquery-grid {
         display: none;
-        height: 1000%;
+        height: 2000%;
         position: absolute;
         top: 0;
         width: 100%;
         z-index: 9999;
       }
+      .jquery-grid-container,
+      .jquery-grid-col {
+        height: 100%;
+      }
+      .jquery-grid-col {
+        background-color: rgba(255, 0, 0, .4);
+      }
     </style>
-    
-    <!-- JavaScript to show and hide the grid accordingly -->
-    <script type="text/javascript">
-      $(document).bind('keydown', function(event) {
-        if (event.which == 27) {
-          event.preventDefault();
-          $('#grid').toggle();
-        }
-      });
-    </script>
+
+    <!-- Not Required: Example grid styles -->
+
+    <style type="text/css">
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .col-1-4 {
+        float: left;
+        margin: 0 1.041666667%;
+        width: 22.916666667%;
+      }
+      body {
+        font: 16px/24px "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        margin: 24px;
+        text-align: center;
+      }
+      p {
+        margin: 24px;
+      }
+      kbd {
+        line-height: 1;
+      }
+    </style>
   
   </body>
 </html>

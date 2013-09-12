@@ -1,34 +1,91 @@
-<h1>jQuery 960 Grid Overlay</h1>
+# jQuery Grid Overlay
 
-<p>For most projects I use the <a href="http://960.gs" alt="960 Grid System">960 Grid System</a> and in doing so I built a plugin to overlay the grid to make sure my work was in alignment. After showing others my plugin I have been asked to share it, thus the jQuery 960 Grid Overlay was born.</p>
+For most projects I use a horizontal and vertical grid, and I&#8217;ve built a plugin to overlay the grid to make sure my work is always in alignment. After showing other people my work flow I&#8217;ve been asked to share my plugin, thus the jQuery Grid Overlay was born.
 
-<p>The plugin takes the popular 960 Grid System structure and overlays it on the top of a website upon pressing the escape key. Simple enough.</p>
+The plugin takes the grid system of your choice and overlays it on the top of a website upon pressing the escape, or `esc`, key. Simple enough.
 
-<h1>Requirements</h1>
+## Requirements
 
-<ul>
-  <li><a href="http://jquery.com/" alt="jQuery">jQuery</a></li>
-  <li>A bit of HTML, CSS, &amp; JavaScript</li>
-  <li>An image of your desired grid (960 grid included)</li>
-</ul>
+* [jQuery](http://jquery.com/)
+* A grid system 
 
-<h1>Getting Started</h1>
+## Installation
 
-<p>Open the index.html file included here and copy everything between the <code>body</code> tags into the header of your document. For best results place it directly below your opening <code>body</code> tag. Within this code be sure to update the CSS background to reference your specific grid. Grids included are:</p>
+The overlay requires placement of HTML, CSS, and JavaScript, preferably before the closing `body` tag. The HTML should use your existing grid system, including both a container and individual columns. The CSS sets up the appropriate styles necessary to display the grid. And lastly, the JavaScript sets up the grid toggling functionality, as well as handling the horizontal grid styles.
 
-<ul>
-    <li>12 Column &mdash; <code>images/grid_12_col.png</code></li>
-    <li>16 Column &mdash; <code>images/grid_16_col.png</code></li>
-    <li>24 Column &mdash; <code>images/grid_24_col.png</code></li>
-</ul>
+### Step 1: Adding the HTML
 
-<p>Also included is a PSD file that will allow you to create your own grids.</p>
+The following markup structure and classes `jquery-grid`, `jquery-grid-container`, and `jquery-grid-col` are required.
 
-<p>Once all of the code and files are in place open up the browser and press the escape key, your grid should appear.</p>
+With a four column grid the HTML should look like:
 
-<h1>Additional Notes</h1>
+```
+<div class="jquery-grid">
+  <div class="jquery-grid-container">
+    <div class="jquery-grid-col"></div>
+    <div class="jquery-grid-col"></div>
+    <div class="jquery-grid-col"></div>
+    <div class="jquery-grid-col"></div>
+  </div>
+</div>
+```
 
-<ul>
-    <li>All of the grid images include use a 20 pixel baseline grid to accompany the 960 vertical grid.</li>
-    <li>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</li>
-</ul>
+* `jquery-grid` serves as a wrapper, absolutely positioning the grid to follow.
+* `jquery-grid-container` sets up the horizontal grid. If your grid comes with a row or container class please included it on this element as well.
+* `jquery-grid-col` sets up the vertical grid. If your grid comes with a column or cell class please include it on this element as well.
+
+If your grid has more than four columns feel free to add more elements including the `jquery-grid-col` class.
+
+### Step 2: Adding the JavaScript
+
+When adding the JavaScript you need to update the `line_height` variable, currently defaulted to `24` pixels, to be the line height for your website. From there, all of the following JavaScript is required:
+
+```
+var line_height = 24;
+
+var line_height_offset = (line_height - 1) + 'px';
+var line_height = line_height + 'px';
+
+$(document).ready(function() {
+  $('.jquery-grid-container').css({
+    backgroundImage: 'linear-gradient(transparent ' +
+                     line_height_offset + ', rgba(255, 0, 0, .6) ' +
+                     line_height_offset + ', rgba(255, 0, 0, .6) ' + 
+                     line_height + ')', 
+    backgroundSize: line_height + ' ' + line_height
+  });
+  $(document).on('keydown', function(event) {
+    if (event.which == 27) {
+      event.preventDefault();
+      $('.jquery-grid').toggle();
+    }
+  });
+});
+```
+### Step 3: Adding the CSS
+
+Lastly, all of the following CSS is required:
+
+```
+.jquery-grid {
+  display: none;
+  height: 2000%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.jquery-grid-container,
+.jquery-grid-col {
+  height: 100%;
+}
+.jquery-grid-col {
+  background-color: rgba(255, 0, 0, .4);
+}
+```
+
+## All in All
+
+Once all of the code is in place open the browser and press the escape key, your grid should appear. For further reference, please see the [example page and grid](https://github.com/shayhowe/jquery-grid-overlay/blob/master/index.html).
+
+If you enjoy the jQuery Grid Overlay please follow me, [@shayhowe](https://twitter.com/shayhowe), on Twitter.
