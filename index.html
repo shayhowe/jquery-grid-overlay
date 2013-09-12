@@ -10,7 +10,7 @@
 
     <p>Press the <kbd>esc</kbd> key to toggle the grid.</p>
     <p>Enjoy the overlay? Follow <a href="https://twitter.com/shayhowe">@shayhowe</a> on Twitter.</p>
-    
+
     <!-- Required: HTML grid -->
     <!-- Please substitute the 'container' and 'col-1-4' classes your own grid classes -->
 
@@ -22,7 +22,7 @@
         <div class="col-1-4 jquery-grid-col"></div>
       </div>
     </div>
-    
+
     <!-- Required: jQuery -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -30,9 +30,23 @@
     <!-- Required: Overlay functionality -->
 
     <script type="text/javascript">
+      /*
+        All of the JavaScript in this file should be
+        wrapped in an IIFE (http://bit.ly/1d6XKwt). Without it,
+        all the variables you assign in here will be added to
+        the global namespace -- and that's a no no.
+
+        Another good (jQuery) reference for this concept can be found
+        in the jQuery plugin authoring guide: http://learn.jquery.com/plugins/basic-plugin-creation/.
+        See the section titled "Protecting the $ Alias and Adding Scope".
+      */
 
       // Edit the line_height variable below
 
+      /*
+        Idiomatic JavaScript would call for camelCased variables
+        over snake_cased ones.
+      */
       var line_height = 24;
 
       // No need for further adjustments
@@ -40,6 +54,11 @@
       // Setting up variables
 
       var line_height_offset = (line_height - 1) + 'px';
+
+      /*
+        `line_height` is a variable that's already declared,
+        therefore it's useless to use the var keyword a second time.
+      */
       var line_height = line_height + 'px';
 
       // Beginning jQuery
@@ -48,16 +67,37 @@
 
         // Setting horizontal background styles
 
+        /*
+          This line is a bit complex and could probably be defined in
+          steps to be more readable.
+        */
+
         $('.jquery-grid-container').css({
-          backgroundImage: 'linear-gradient(transparent ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height + ')', 
+          backgroundImage: 'linear-gradient(transparent ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height + ')',
           backgroundSize: line_height + ' ' + line_height
         });
-        
+
         // Setting up 'ESC' function to toggle the grid
 
         $(document).on('keydown', function(event) {
+
+          /*
+            Should be in the habit of always using triple
+            equals (`===`) for strict type checking.
+          */
+
           if (event.which == 27) {
             event.preventDefault();
+
+            /*
+              You could use some selector caching if you wanted
+              some (albeit very minor in this context) performance
+              improvements. It's a good habit to be in though.
+
+              For example:
+                var $jQueryGrid = $('.jquery-grid');
+                $jQueryGrid.toggle()
+            */
             $('.jquery-grid').toggle();
           }
         });
@@ -110,6 +150,6 @@
         line-height: 1;
       }
     </style>
-  
+
   </body>
 </html>
