@@ -10,7 +10,7 @@
 
     <p>Press the <kbd>esc</kbd> key to toggle the grid.</p>
     <p>Enjoy the overlay? Follow <a href="https://twitter.com/shayhowe">@shayhowe</a> on Twitter.</p>
-    
+
     <!-- Required: HTML grid -->
     <!-- Please substitute the 'container' and 'col-1-4' classes your own grid classes -->
 
@@ -22,7 +22,7 @@
         <div class="col-1-4 jquery-grid-col"></div>
       </div>
     </div>
-    
+
     <!-- Required: jQuery -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -30,40 +30,50 @@
     <!-- Required: Overlay functionality -->
 
     <script type="text/javascript">
+      ;(function($){
 
-      // Edit the line_height variable below
+        // Edit the line_height variable below
 
-      var line_height = 24;
+        var lineHeight = 24;
 
-      // No need for further adjustments
+        // No need for further adjustments
 
-      // Setting up variables
+        // Setting up variables
 
-      var line_height_offset = (line_height - 1) + 'px';
-      var line_height = line_height + 'px';
-
-      // Beginning jQuery
-
-      $(document).ready(function() {
+        var lineHeightOffset = (lineHeight - 1) + 'px';
+        lineHeight = lineHeight + 'px';
 
         // Setting horizontal background styles
 
-        $('.jquery-grid-container').css({
-          backgroundImage: 'linear-gradient(transparent ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height + ')', 
-          backgroundSize: line_height + ' ' + line_height
+        var jQueryGridContainerCss = {
+          backgroundImage: 'linear-gradient(transparent ' + lineHeightOffset + ', rgba(255, 0, 0, .6) ' + lineHeightOffset + ', rgba(255, 0, 0, .6) ' + lineHeight + ')',
+          backgroundSize: lineHeight + ' ' + lineHeight
+        };
+
+        // Beginning jQuery
+
+        $(function(){
+
+          // Applying horizontal background styles
+
+          $('.jquery-grid-container').css(jQueryGridContainerCss);
+
+          // Cache the '.jquery-grid' selector
+
+          var $jQueryGrid = $('.jquery-grid');
+
+          // Setting up 'ESC' function to toggle the grid
+
+          $(document).on('keydown', function(event) {
+            if (event.which === 27) {
+              event.preventDefault();
+              $jQueryGrid.toggle();
+            }
+          });
+
         });
-        
-        // Setting up 'ESC' function to toggle the grid
 
-        $(document).on('keydown', function(event) {
-          if (event.which == 27) {
-            event.preventDefault();
-            $('.jquery-grid').toggle();
-          }
-        });
-
-      });
-
+      }).call(this, jQuery);
     </script>
 
     <!-- Required: Overlay styles -->
@@ -100,7 +110,7 @@
       }
       body {
         font: 16px/24px "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-        margin: 24px;
+        margin: 0;
         text-align: center;
       }
       p {
@@ -110,6 +120,6 @@
         line-height: 1;
       }
     </style>
-  
+
   </body>
 </html>
