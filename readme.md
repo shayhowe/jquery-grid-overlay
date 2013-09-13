@@ -7,7 +7,7 @@ The plugin takes the grid system of your choice and overlays it on the top of a 
 ## Requirements
 
 * [jQuery](http://jquery.com/)
-* A grid system 
+* A grid system
 
 ## Installation
 
@@ -41,26 +41,30 @@ If your grid has more than four columns feel free to add more elements including
 When adding the JavaScript you need to update the `line_height` variable, currently defaulted to `24` pixels, to be the line height for your website. From there, all of the following JavaScript is required:
 
 ```
-var line_height = 24;
+(function($){
 
-var line_height_offset = (line_height - 1) + 'px';
-var line_height = line_height + 'px';
+  var lineHeight = 24;
 
-$(document).ready(function() {
-  $('.jquery-grid-container').css({
-    backgroundImage: 'linear-gradient(transparent ' +
-                     line_height_offset + ', rgba(255, 0, 0, .6) ' +
-                     line_height_offset + ', rgba(255, 0, 0, .6) ' + 
-                     line_height + ')', 
-    backgroundSize: line_height + ' ' + line_height
+  var lineHeightOffset = (lineHeight - 1) + 'px';
+  lineHeight = lineHeight + 'px';
+
+  var jQueryGridContainerCss = {
+    backgroundImage: 'linear-gradient(transparent ' + lineHeightOffset + ', rgba(255, 0, 0, .6) ' + lineHeightOffset + ', rgba(255, 0, 0, .6) ' + lineHeight + ')',
+    backgroundSize: lineHeight + ' ' + lineHeight
+  };
+
+  $(function(){
+    $('.jquery-grid-container').css(jQueryGridContainerCss);
+    var $jQueryGrid = $('.jquery-grid');
+    $(document).on('keydown', function(event) {
+      if (event.which === 27) {
+        event.preventDefault();
+        $jQueryGrid.toggle();
+      }
+    });
   });
-  $(document).on('keydown', function(event) {
-    if (event.which == 27) {
-      event.preventDefault();
-      $('.jquery-grid').toggle();
-    }
-  });
-});
+
+}).call(this, jQuery);
 ```
 ### Step 3: Adding the CSS
 
@@ -89,3 +93,5 @@ Lastly, all of the following CSS is required:
 Once all of the code is in place open the browser and press the escape key, your grid should appear. For further reference, please see the [example page and grid](https://github.com/shayhowe/jquery-grid-overlay/blob/master/index.html).
 
 If you enjoy the jQuery Grid Overlay please follow me, [@shayhowe](https://twitter.com/shayhowe), on Twitter.
+
+Special thanks to [Ben Reinhart](https://github.com/benjreinhart) and [AJ Self](https://github.com/ajself) for the code reviews.
