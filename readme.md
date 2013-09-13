@@ -43,14 +43,14 @@ When adding the JavaScript you need to update the `line_height` variable, curren
 ```
 (function($){
 
-  var lineHeight = 24;
+  var line_height = 24;
 
-  var lineHeightOffset = (lineHeight - 1) + 'px';
-  lineHeight = lineHeight + 'px';
+  var line_height_offset = (line_height - 1) + 'px';
+  line_height = line_height + 'px';
 
   var jQueryGridContainerCss = {
-    backgroundImage: 'linear-gradient(transparent ' + lineHeightOffset + ', rgba(255, 0, 0, .6) ' + lineHeightOffset + ', rgba(255, 0, 0, .6) ' + lineHeight + ')',
-    backgroundSize: lineHeight + ' ' + lineHeight
+    backgroundImage: 'linear-gradient(transparent ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height_offset + ', rgba(255, 0, 0, .6) ' + line_height + ')',
+    backgroundSize: line_height + ' ' + line_height
   };
 
   $(function(){
